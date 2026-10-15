@@ -1,0 +1,56 @@
+rules_version = '2';
+
+// Firestore security rules for the YEP website.
+//
+// - `applications`: anyone can create an application, nobody can read,
+//   update, or delete from the client.
+// - `profiles`: document id is the account uid. Owners may create/update
+//   their own profile. Mentor profiles are public so the mentor directory
+//   can list them with contact details; mentee profiles stay private.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /applications/{applicationId} {
+      allow create: if true;
+      allow read, update, delete: if false;
+    }
+
+    match /profiles/{profileId} {
+      function isOwner() {
+        return request.auth != null && request.auth.uid == profileId;
+      }
+
+      // Mentor profiles are public (mentor directory); everyone can read
+      // their own profile regardless of role.
+      allow get: if resource.data.role == 'mentor' || isOwner();
+      allow list: if resource.data.role == 'mentor'
+        || (request.auth != null && request.auth.uid == resource.data.uid);
+
+      // Owners may create and update their own profile with valid data.
+      allow create: if isOwner()
+        && request.resource.data.role in ['mentor', 'mentee']
+        && request.resource.data.uid == profileId
+        && request.resource.data.fullName is string
+        && request.resource.data.email is string
+        && (request.resource.data.role == 'mentee'
+            || (request.resource.data.specialty is string
+                && request.resource.data.yearsExperience is string
+                && request.resource.data.education is string));
+
+      allow update: if isOwner()
+        && request.resource.data.role in ['mentor', 'mentee']
+        && request.resource.data.uid == profileId
+        && request.resource.data.fullName is string
+        && request.resource.data.email is string
+        && (request.resource.data.role == 'mentee'
+            || (request.resource.data.specialty is string
+                && request.resource.data.yearsExperience is string
+                && request.resource.data.education is string));
+
+      allow delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" fill="none" role="img" aria-labelledby="title">
+  <title id="title">Young people collaborating during a YEP workshop</title>
+  <rect width="800" height="600" fill="#FFFFFF"/>
+  <g fill="#EEF4FB">
+    <circle cx="700" cy="80" r="180"/>
+    <circle cx="90" cy="540" r="200"/>
+  </g>
+  <g stroke="#0F2246" stroke-opacity="0.07">
+    <rect x="60" y="60" width="680" height="480" rx="24"/>
+    <path d="M60 140H740M60 220H740M60 300H740M60 380H740M60 460H740M140 60V540M220 60V540M300 60V540M380 60V540M460 60V540M540 60V540M620 60V540M700 60V540"/>
+  </g>
+  <rect x="96" y="96" width="608" height="408" rx="20" fill="#0F2246"/>
+  <circle cx="640" cy="150" r="110" fill="#F07E12" opacity="0.2"/>
+  <g fill="#4F7FC9" opacity="0.5">
+    <rect x="180" y="180" width="90" height="120" rx="14"/>
+    <rect x="290" y="160" width="120" height="140" rx="14"/>
+    <rect x="430" y="200" width="80" height="100" rx="14"/>
+  </g>
+  <g fill="#F07E12" opacity="0.9">
+    <rect x="220" y="360" width="70" height="9" rx="4.5"/>
+    <rect x="220" y="382" width="110" height="9" rx="4.5"/>
+    <rect x="220" y="404" width="86" height="9" rx="4.5"/>
+  </g>
+  <rect x="164" y="340" width="472" height="1" fill="white" fill-opacity="0.12"/>
+</svg>

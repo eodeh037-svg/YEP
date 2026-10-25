@@ -40,8 +40,8 @@ export function FocusArea({ item }: { item: typeof about.focusAreas[number] }) {
         />
       </div>
       <div
-        className="grid overflow-hidden transition-[grid-template-rows] duration-300 ease-out"
-        style={{ gridTemplateRows: visible ? "1fr" : "0fr" }}
+        className="overflow-hidden transition-[max-height] duration-300 ease-out"
+        style={{ maxHeight: visible ? 200 : 0 }}
       >
         <div className="mt-2 rounded-lg border border-brand-900/5 bg-brand-50/50 p-3 text-sm text-slate-600 leading-relaxed">
           {item.description}

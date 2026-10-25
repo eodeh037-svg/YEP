@@ -1,9 +1,54 @@
+"use client";
+
 import Image from "next/image";
-import { Check } from "lucide-react";
+import { useState } from "react";
+import { ChevronDown, Check } from "lucide-react";
 import { about } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
+
+const focusClasses =
+  "flex items-center gap-2.5 rounded-xl border border-brand-900/10 bg-brand-50 px-4 py-3 text-sm font-medium text-brand-900 transition-all cursor-pointer";
+
+export function FocusArea({ item }: { item: typeof about.focusAreas[number] }) {
+  const [open, setOpen] = useState(false);
+  const [pinned, setPinned] = useState(false);
+
+  const show = open || pinned;
+
+  return (
+    <li>
+      <div
+        className={`${focusClasses} ${pinned ? "bg-brand-100 shadow-sm" : ""}`}
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => {
+          if (!pinned) setOpen(false);
+        }}
+        onClick={() => {
+          setPinned(!pinned);
+          setOpen(!pinned);
+        }}
+      >
+        <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-900">
+          <Check className="h-3 w-3 text-white" />
+        </div>
+        <span className="flex-1 truncate">{item.title}</span>
+        <ChevronDown
+          className={`h-4 w-4 shrink-0 transition-transform duration-300 ${show ? "rotate-180" : ""}`}
+        />
+      </div>
+      <div
+        className="overflow-hidden transition-[grid-template-rows] duration-300 ease-out"
+        style={{ gridTemplateRows: show ? "1fr" : "0fr" }}
+      >
+        <div className="mt-2 rounded-lg border border-brand-900/5 bg-brand-50/50 p-3 text-sm text-slate-600 leading-relaxed">
+          {item.description}
+        </div>
+      </div>
+    </li>
+  );
+}
 
 export function About() {
   return (
@@ -18,6 +63,7 @@ export function About() {
                 width={800}
                 height={600}
                 className="h-auto w-full object-cover"
+                priority
               />
             </div>
           </Reveal>
@@ -38,15 +84,7 @@ export function About() {
             <Reveal delay={150}>
               <ul className="mt-8 grid gap-3 sm:grid-cols-2">
                 {about.focusAreas.map((area) => (
-                  <li
-                    key={area}
-                    className="flex items-center gap-2.5 rounded-xl border border-brand-900/10 bg-brand-50 px-4 py-3 text-sm font-medium text-brand-900"
-                  >
-                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-900">
-                      <Check className="h-3 w-3 text-white" />
-                    </span>
-                    {area}
-                  </li>
+                  <FocusArea key={area.title} item={area} />
                 ))}
               </ul>
             </Reveal>

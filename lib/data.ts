@@ -39,19 +39,52 @@ export const hero = {
 // ------------------------------------------------------------
 // About
 // ------------------------------------------------------------
+export type FocusArea = {
+  title: string;
+  description: string;
+};
+
 export const about = {
   eyebrow: "About YEP",
   title: "More informed. More skilled. More ready for the future.",
   description:
     "YEP is a youth-focused initiative helping young people become more informed, skilled, disciplined, and prepared for education, careers, entrepreneurship, and life.",
   focusAreas: [
-    "Career Guidance",
-    "Entrepreneurship",
-    "Skills Development",
-    "Mentorship",
-    "Leadership",
-    "Personal Development",
-    "Opportunities & Networking",
+    {
+      title: "Career Guidance",
+      description:
+        "Counseling on career paths, job-market trends, and informed decision-making to help young people choose their futures.",
+    },
+    {
+      title: "Entrepreneurship",
+      description:
+        "Business fundamentals and startup skills that turn ideas into sustainable ventures.",
+    },
+    {
+      title: "Skills Development",
+      description:
+        "Practical, industry-relevant training that prepares young people for employment and self-employment.",
+    },
+    {
+      title: "Mentorship",
+      description:
+        "Real-world guidance from experienced professionals who share perspective and encouragement.",
+    },
+    {
+      title: "Leadership",
+      description:
+        "Confidence, communication, decision-making, and discipline to lead in school, work, and community.",
+    },
+    {
+      title: "Personal Development",
+      description:
+        "Growth in discipline, time management, and personal effectiveness for everyday life.",
+    },
+    {
+      title: "Opportunities & Networking",
+      description:
+        "Access to programs, events, and connections with peers, mentors, and organizations.",
+    },
   ],
 } as const;
 

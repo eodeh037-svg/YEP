@@ -13,21 +13,22 @@ const focusClasses =
 
 export function FocusArea({ item }: { item: typeof about.focusAreas[number] }) {
   const [open, setOpen] = useState(false);
-  const [pinned, setPinned] = useState(false);
+  const [locked, setLocked] = useState(false);
 
-  const show = open || pinned;
+  const visible = open || locked;
 
   return (
     <li>
       <div
-        className={`${focusClasses} ${pinned ? "bg-brand-100 shadow-sm" : ""}`}
+        className={`${focusClasses} ${locked ? "bg-brand-100 shadow-sm" : ""}`}
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => {
-          if (!pinned) setOpen(false);
+          if (!locked) setOpen(false);
         }}
         onClick={() => {
-          setPinned(!pinned);
-          setOpen(!pinned);
+          const nextLocked = !locked;
+          setLocked(nextLocked);
+          setOpen(nextLocked);
         }}
       >
         <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-900">
@@ -35,12 +36,12 @@ export function FocusArea({ item }: { item: typeof about.focusAreas[number] }) {
         </div>
         <span className="flex-1 truncate">{item.title}</span>
         <ChevronDown
-          className={`h-4 w-4 shrink-0 transition-transform duration-300 ${show ? "rotate-180" : ""}`}
+          className={`h-4 w-4 shrink-0 transition-transform duration-300 ${visible ? "rotate-180" : ""}`}
         />
       </div>
       <div
-        className="overflow-hidden transition-[grid-template-rows] duration-300 ease-out"
-        style={{ gridTemplateRows: show ? "1fr" : "0fr" }}
+        className="grid overflow-hidden transition-[grid-template-rows] duration-300 ease-out"
+        style={{ gridTemplateRows: visible ? "1fr" : "0fr" }}
       >
         <div className="mt-2 rounded-lg border border-brand-900/5 bg-brand-50/50 p-3 text-sm text-slate-600 leading-relaxed">
           {item.description}
